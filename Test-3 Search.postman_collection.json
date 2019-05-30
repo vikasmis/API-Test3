@@ -1,0 +1,226 @@
+{
+	"info": {
+		"_postman_id": "4b6c8f33-fc9f-405f-9435-edd5f1476377",
+		"name": "Test-3 Search",
+		"description": "********************* TASK 3 ************************\r\n\r\nWrite an automated API tests for product search on https://my.lobsterink.com/learn.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Learning Search API 1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c3415740-1aaa-486f-91e2-56ed01759526",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "OPTIONS",
+				"header": [
+					{
+						"key": "Access-Control-Request-Method",
+						"value": "POST"
+					},
+					{
+						"key": "Origin",
+						"value": "https://my.lobsterink.com"
+					},
+					{
+						"key": "Referer",
+						"value": "https://my.lobsterink.com/learn"
+					},
+					{
+						"key": "User-Agent",
+						"value": "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Mobile Safari/537.36"
+					},
+					{
+						"key": "Access-Control-Request-Headers",
+						"value": "content-type,language,tenant"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"url": {
+					"raw": "https://api.lobsterink.com/api",
+					"protocol": "https",
+					"host": [
+						"api",
+						"lobsterink",
+						"com"
+					],
+					"path": [
+						"api"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Learning Search API 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4e40f3a8-7a04-49d9-8bd3-6b0cd726a403",
+						"exec": [
+							"// this will give you the product on lobsterin/learn page.",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"var jsonData = JSON.parse(responseBody);",
+							"//can use foreach to get the product list. Use console to see the values.",
+							"console.log(jsonData.data.searchProductCategories[0].id, jsonData.data.searchProductCategories[0].name);",
+							"console.log(jsonData.data.searchProductCategories[1].id, jsonData.data.searchProductCategories[1].name);",
+							"console.log(jsonData.data.searchProductCategories[2].id, jsonData.data.searchProductCategories[2].name);",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "language",
+						"value": "en",
+						"type": "text"
+					},
+					{
+						"key": "Origin",
+						"value": "https://my.lobsterink.com",
+						"type": "text"
+					},
+					{
+						"key": "Referer",
+						"value": "https://my.lobsterink.com/learn",
+						"type": "text"
+					},
+					{
+						"key": "tenant",
+						"value": "lobsterink",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"query\":\"query MarketplaceContentComponent{searchProductCategories{id,name}}\\n\"}"
+				},
+				"url": {
+					"raw": "https://api.lobsterink.com/api",
+					"protocol": "https",
+					"host": [
+						"api",
+						"lobsterink",
+						"com"
+					],
+					"path": [
+						"api"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Learning Search API 3",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "73161726-55a1-45f1-a391-bd295921fe56",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "f17881d0-72b8-42e2-815c-e1c5184342e7",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "language",
+						"value": "en",
+						"type": "text"
+					},
+					{
+						"key": "Origin",
+						"value": "https://my.lobsterink.com",
+						"type": "text"
+					},
+					{
+						"key": "Referer",
+						"value": "https://my.lobsterink.com/learn",
+						"type": "text"
+					},
+					{
+						"key": "tenant",
+						"value": "lobsterink",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"query\":\"query MarketplaceContentComponent{searchMarketplaceBase(preview:false,skip:0,take:9,text:\\\"\\\"){productCategory{id,name},featuredProduct{courseProduct{course{duration,hasPracticalAssessments,lessons{id},reference}},description,ecommerce{businessUnitAssignable,assignable,notAssignableReason},id,learningObjectives,learningPathProduct{certificateDisabled,courseProducts{id},dateClosed,duration,hasPracticalAssessments,lessonCount},name,partnershipOneColoredLogo,partnershipOneWhiteLogo,partnershipTwoColoredLogo,partnershipTwoWhiteLogo,price,productAssignment{isComplimentary,isPaid,isProductAssignedToMarketplace,isSubscription},thumbnailImage,trailerVideoAsset{assetUrlSmoothStreaming,language{code,direction,name,nameInLanguage},languageCode,posterUrl,subtitles{language{code,direction,name,nameInLanguage},value},subtitlesUrl,translatedVideoAssets{assetUrlSmoothStreaming,language{code,direction,name,nameInLanguage},languageCode,posterUrl},videoAssetId},trailerVideoAssetNotRequired,type},filteredProducts{courseProduct{course{duration,hasPracticalAssessments,lessons{id},reference}},description,ecommerce{businessUnitAssignable,assignable,notAssignableReason},id,learningObjectives,learningPathProduct{certificateDisabled,courseProducts{id},dateClosed,duration,hasPracticalAssessments,lessonCount},name,partnershipOneColoredLogo,partnershipOneWhiteLogo,partnershipTwoColoredLogo,partnershipTwoWhiteLogo,price,productAssignment{isComplimentary,isPaid,isProductAssignedToMarketplace,isSubscription},thumbnailImage,trailerVideoAsset{assetUrlSmoothStreaming,language{code,direction,name,nameInLanguage},languageCode,posterUrl,subtitles{language{code,direction,name,nameInLanguage},value},subtitlesUrl,translatedVideoAssets{assetUrlSmoothStreaming,language{code,direction,name,nameInLanguage},languageCode,posterUrl},videoAssetId},trailerVideoAssetNotRequired,type},potentialMatchProducts{courseProduct{course{duration,hasPracticalAssessments,lessons{id},reference}},description,ecommerce{businessUnitAssignable,assignable,notAssignableReason},id,learningObjectives,learningPathProduct{certificateDisabled,courseProducts{id},dateClosed,duration,hasPracticalAssessments,lessonCount},name,partnershipOneColoredLogo,partnershipOneWhiteLogo,partnershipTwoColoredLogo,partnershipTwoWhiteLogo,price,productAssignment{isComplimentary,isPaid,isProductAssignedToMarketplace,isSubscription},thumbnailImage,trailerVideoAsset{assetUrlSmoothStreaming,language{code,direction,name,nameInLanguage},languageCode,posterUrl,subtitles{language{code,direction,name,nameInLanguage},value},subtitlesUrl,translatedVideoAssets{assetUrlSmoothStreaming,language{code,direction,name,nameInLanguage},languageCode,posterUrl},videoAssetId},trailerVideoAssetNotRequired,type}}}\\n\"}"
+				},
+				"url": {
+					"raw": "https://api.lobsterink.com/api",
+					"protocol": "https",
+					"host": [
+						"api",
+						"lobsterink",
+						"com"
+					],
+					"path": [
+						"api"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
